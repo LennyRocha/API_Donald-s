@@ -1,0 +1,17 @@
+npm install express jsonwebtoken
+npm i dotenv
+npm install sequelize mysql2
+npm install mysql2
+npm i nodemon -D
+npm i express
+
+cosas que deben instalar si se los piden
+
+Corregir esto:
+        const [row] = await deadpool.query("SELECT prod_id FROM productos WHERE nombre = ?",[req.params.producto])
+        if(row.length <= 0) return res.status(404).json({
+            error: '404',
+            mensaje: '¡NOT FOUND!',
+            dato:'No se encontró algun platillo con ese nombre'
+        })
+        const idPlato = row[0].prod_id
