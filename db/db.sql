@@ -54,3 +54,13 @@
 		Usuario varchar (20) not null,
 		calificacion int not null
 	);
+
+	create table reportes_diarios(
+	 ir_rep int not null auto_increment primary key,
+	 fecha date not null,
+	 ventas_totales float not null,
+	 producto_mas_vendido int not null,
+	 mejor_empleado int not null,
+     foreign key (producto_mas_vendido) references productos (prod_id),
+     foreign key (mejor_empleado) references empleados (emp_id)
+	);

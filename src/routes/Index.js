@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const app = express();
+const path = require('path');
+const { fileURLToPath } = require('url');
 
 //Importación de las routas en este archivo para exportar un único módulo al index
 const menu_routes = require('./menu.routes.js')
@@ -9,11 +12,15 @@ const categoria_routes = require('./categoria.routes.js')
 const feedback_routes = require('./feedback.routes.js');
 const login = require("../controllers/index.controller.js");
 
+const _dirname = __dirname;
+
+app.use(express.static(path.join(_dirname, '../public')));
+
 //Exporta una función que contiene todas las rutas a utilizar para una única importación en el índice.
 module.exports = function(){
-    router.get("/",(req,res) => {
-        res.send("El inicio");
-    })
+    router.get("/", (req, res) => {
+        res.sendFile(path.join(__dirname, '../public', 'index.html'));
+    });
 
     router.get("/we",(req,res) => {
         res.send("¡We... are Venom!");
