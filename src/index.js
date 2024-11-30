@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
 //Declaración del path a utilizar
-app.use("/v1", routes());
+app.use("/api/v1", routes());
 
 //Manejador de una ruta no existente
 app.use((req,res,next) => {

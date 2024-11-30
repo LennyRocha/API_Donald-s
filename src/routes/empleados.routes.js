@@ -12,14 +12,14 @@ const {
 const elToken = require("../Auth/authMiddleware");
 
 //Rutas de la API
-router.get('/empleados', /*elToken*/ getEmpleados)
+router.get('/empleados', elToken, getEmpleados)
 
-router.get('/empleados/:id', getEmpleado)
+router.get('/empleados/:id', elToken, getEmpleado)
 
-router.post('/empleados', postEmpleado)
+router.post('/empleados', elToken, postEmpleado)
 
-router.patch('/empleados/:id', patchEmpleado)
+router.patch('/empleados/:id', elToken, patchEmpleado)
 
-router.delete('/empleados/:id', deleteEmpleado)
+router.delete('/empleados/:id', elToken, deleteEmpleado)
 
 module.exports = router

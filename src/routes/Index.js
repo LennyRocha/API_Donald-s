@@ -11,6 +11,7 @@ const empleados_routes = require('./empleados.routes.js')
 const categoria_routes = require('./categoria.routes.js')
 const feedback_routes = require('./feedback.routes.js');
 const login = require("../controllers/index.controller.js");
+const reporte_routes = require("../controllers/reporte.controller.js");
 
 const _dirname = __dirname;
 
@@ -21,10 +22,6 @@ module.exports = function(){
     router.get("/", (req, res) => {
         res.sendFile(path.join(__dirname, '../public', 'index.html'));
     });
-
-    router.get("/we",(req,res) => {
-        res.send("¡We... are Venom!");
-    })
 
     //Pequeño testeo del login
     router.get("/login",(req,res) => {
@@ -49,6 +46,7 @@ module.exports = function(){
     router.use(empleados_routes)
     router.use(categoria_routes)
     router.use(feedback_routes)
+    router.use(reporte_routes)
     router.use(login)
 
     return router;

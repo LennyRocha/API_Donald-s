@@ -11,6 +11,7 @@ const {
     patchMenu,
     deleteMenu
 } = require("../controllers/menu.controller");
+const elToken = require("../Auth/authMiddleware");
 
 //Rutas de la API
 router.get('/menu', getMenu)
@@ -19,12 +20,12 @@ router.get('/menu/:nombre', getMenuName)
 
 router.get('/menu/id/:id', getMenuId)
 
-router.post('/menu', postMenu)
+router.post('/menu', elToken, postMenu)
 
-router.put('/menu/:nombre', putMenu)
+router.put('/menu/:nombre', elToken, putMenu)
 
-router.patch('/menu/:id', patchMenu)
+router.patch('/menu/:id', elToken, patchMenu)
 
-router.delete('/menu', deleteMenu)
+router.delete('/menu', elToken, deleteMenu)
 
 module.exports = router

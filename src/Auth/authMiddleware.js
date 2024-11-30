@@ -13,7 +13,14 @@ function elToken(req, res, next) {
     console.log('Token recibido: ', token);
     
     if (!token) {
-        return res.status(401).send('Acceso denegado. No se proporcionó un token.');
+        return res.status(401).json({            
+            "metadata": [
+            { 
+                "codigo": "-01", 
+                "mensaje": "Acceso denegado. No se proporcionó un token." 
+            }
+            ],
+        });
     }
     
     try {
@@ -21,7 +28,14 @@ function elToken(req, res, next) {
         req.user = verified; // Aquí puedes almacenar los datos del usuario para su uso posterior
         next();
     } catch (err) {
-        res.status(400).send('Token no válido.');
+        res.status(404).json({            
+            "metadata": [
+            { 
+                "codigo": "-01", 
+                "mensaje": "Token no válido." 
+            }
+            ],
+        });
     }
 }
 
