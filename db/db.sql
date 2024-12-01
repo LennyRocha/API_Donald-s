@@ -4,13 +4,13 @@
 
 	create table categorias(
 		cat_id int not null auto_increment primary key,
-		nombre varchar(20) not null,
+		nombre varchar(20) not null unique,
 		descripcion varchar(100) not null
 	);
 
 	create table productos(
 		prod_id int not null auto_increment primary key,
-		nombre varchar(20) not null,
+		nombre varchar(20) not null unique,
 		descripcion varchar(100) not null,
 		precio float not null,
 		agregado varchar(20) not null,
