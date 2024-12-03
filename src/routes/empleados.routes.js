@@ -16,7 +16,7 @@ router.get('/empleados', elToken, getEmpleados)
 
 router.get('/empleados/:id', elToken, getEmpleado)
 
-router.post('/empleados', elToken, postEmpleado)
+router.post('/empleados', postEmpleado)
 
 router.patch('/empleados/:id', elToken, patchEmpleado)
 

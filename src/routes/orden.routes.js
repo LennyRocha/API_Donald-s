@@ -10,8 +10,9 @@ const {
     patchEstado,
     deleteOrden
 } = require("../controllers/orden.controller.js");
+const elToken = require("../Auth/authMiddleware");
 
-router.get('/orden', getOrdenes)
+router.get('/orden', elToken, getOrdenes)
 
 router.get('/orden/:id', getOrden)
 

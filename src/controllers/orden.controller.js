@@ -57,7 +57,7 @@ exports.getOrdenes = async (req, res) => {
             }
         }))
 
-        res.json(ordenes)
+        res.json([ordenes])
     } catch (error) {
         console.log(error)
         return res.status(500).json({
@@ -73,14 +73,14 @@ exports.getOrden = async (req, res) => {
     try{
         const [rows] = await deadpool.query(`SELECT o.*, 
             o.orden_id AS num_orden, o.total AS total, o.fecha AS fecha,
-            e.nombre AS encargado, e.id,
+            e.nombre AS encargado, e.emp_id,
                 pr.prod_id AS producto_id,
                 pr.nombre AS producto_nombre,
                 pr.descripcion AS producto_descripcion,
                 pr.precio,
                 pr.agregado,
                 pr.disponible,
-            p.cantidad
+            p.cantidad,
                 c.cat_id AS categoria_id,
                 c.nombre AS categoria_nombre,
                 c.descripcion AS categoria_descripcion
@@ -88,13 +88,36 @@ exports.getOrden = async (req, res) => {
             JOIN empleados e ON o.empleado = e.emp_id
             JOIN pedidos p ON o.orden_id = p.orden
             JOIN productos pr ON p.producto = pr.prod_id
-            JOIN categorias c ON p.categoria = c.cat_id WHERE orden_id = ?`, [req.params.nombre])
+            JOIN categorias c ON pr.categoria = c.cat_id WHERE o.orden_id = ?`, [req.params.id])
         if(rows.length <= 0) return res.status(404).json({
             error: '404',
             mensaje: '¡NOT FOUND!',
             dato:'No se encontró tu orden'
         })
-        res.json(rows[0])
+        //res.json(rows[0])
+        res.json({
+            numero:rows[0].num_orden,
+            total:rows[0].total,
+            fecha:rows[0].fecha,
+            cantidad:rows[0].cantidad,
+            encargado:{
+                id: rows[0].emp_id,
+                nombre: rows[0].encargado
+            },
+            productos:{
+                id:rows[0].producto_id,
+                nombre: rows[0].producto_nombre,
+                descripcion: rows[0].producto_descripcion,
+                precio: rows[0].precio,
+                agregado: rows[0].agregado,
+                disponible: rows[0].disponible,
+                categoria : {
+                    id: rows[0].categoria_id,
+                    nombre : rows[0].categoria_nombre,
+                    descripcion : rows[0].categoria_descripcion
+                }
+            }
+        })
     }catch(error){
         console.log(error)
         return res.status(500).json({

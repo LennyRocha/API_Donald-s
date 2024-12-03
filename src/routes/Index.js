@@ -11,7 +11,7 @@ const empleados_routes = require('./empleados.routes.js')
 const categoria_routes = require('./categoria.routes.js')
 const feedback_routes = require('./feedback.routes.js');
 const login = require("../controllers/index.controller.js");
-const reporte_routes = require("../controllers/reporte.controller.js");
+const reporte_routes = require("../routes/reporte.routes.js");
 
 const _dirname = __dirname;
 
@@ -35,7 +35,7 @@ module.exports = function(){
                         <form method="POST" action="auth" class="container">
                             Nombre de usuario: <input type="text" name="nombre" class="form-control"/><br>
                             Contraseña: <input type="password" name="contra" class="form-control"/><br>
-                            <input type="submit" value="Acceder" class="btn btn-primary"/>
+                            <input type="submit" value="Acceder" class="btn btn-primary" id="entrar"/>
                         </form>
                     </body>
                 </html>`)

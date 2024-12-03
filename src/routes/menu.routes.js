@@ -16,9 +16,9 @@ const elToken = require("../Auth/authMiddleware");
 //Rutas de la API
 router.get('/menu', getMenu)
 
-router.get('/menu/:nombre', getMenuName)
+router.get('/menu/nombre/:nombre', getMenuName)
 
-router.get('/menu/id/:id', getMenuId)
+router.get('/menu/:id', getMenuId)
 
 router.post('/menu', elToken, postMenu)
 
