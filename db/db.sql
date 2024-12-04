@@ -1,16 +1,16 @@
-	create database apiDonalds;
+	create database apiDonalds;	
 
 	use apiDonalds;
 
 	create table categorias(
 		cat_id int not null auto_increment primary key,
-		nombre varchar(20) not null unique,
+		nombre varchar(20) not null,
 		descripcion varchar(100) not null
 	);
 
 	create table productos(
 		prod_id int not null auto_increment primary key,
-		nombre varchar(20) not null unique,
+		nombre varchar(20) not null,
 		descripcion varchar(100) not null,
 		precio float not null,
 		agregado varchar(20) not null,
@@ -23,10 +23,12 @@
 		emp_id int not null auto_increment primary key,
 		nombre varchar(20) not null,
 		correo varchar(50) not null unique,
-		contra varchar(256) not null
+		contra varchar(256) not null,
+        rol int not null default 2,
+		foreign key (rol) references roles (id_rol)
 	);
-
-    create table ordenes(
+    
+	create table ordenes(
 		orden_id int not null auto_increment primary key,
 		total float not null,
 		fecha date not null,
@@ -34,6 +36,9 @@
         estado varchar (20) not null default 'Pendiente',
 		foreign key (empleado) references empleados(emp_id)
 	);
+    
+    alter table ordenes add column estado varchar (20) not null default 'Pendiente';
+    select*from ordenes;
 
 	-- Tabla de relación muchos a muchos
 	create table pedidos(
@@ -47,23 +52,31 @@
 	);
     
 	create table feedback(
-		fed_id int not null primary key,
+		fed_id int not null auto_increment primary key,
 		producto int not null,
 		foreign key (producto) references productos(prod_id),
 		comentario varchar (100) not null,
 		Usuario varchar (20) not null,
 		calificacion int not null
 	);
-
-	create table reportes_diarios(
-	 id_rep int not null auto_increment primary key,
-	 fecha date not null,
-	 ventas_totales float not null,
-	 producto_mas_vendido int not null,
-	 mejor_empleado int not null,
-     foreign key (producto_mas_vendido) references productos (prod_id),
-     foreign key (mejor_empleado) references empleados (emp_id)
+    
+    create table reportes_diarios(
+		 id_rep int not null auto_increment primary key,
+		 fecha date not null,
+		 ventas_totales float not null,
+		 producto_mas_vendido int not null,
+		 mejor_empleado int not null,
+		 foreign key (producto_mas_vendido) references productos (prod_id),
+		 foreign key (mejor_empleado) references empleados (emp_id)
 	);
+    
+    create table roles(
+		id_rol int not null auto_increment primary key,
+        tipo varchar(20) not null
+	);
+    
+    insert into roles (tipo) values ('admin');
+    insert into roles (tipo) values ('normal');
 
 DELIMITER $$
 

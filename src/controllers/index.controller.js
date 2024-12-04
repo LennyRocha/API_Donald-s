@@ -24,7 +24,7 @@ router.post('/auth', async (req, res) => {
 
         //Se valida al usuario en la base de datos
         const [rows] = await deadpool.query('SELECT * FROM empleados WHERE nombre = ?', [nombre]);
-        console.log(nombre, contra)
+        //console.log(nombre, contra)
         
         if (rows.length === 0) {
             return res.status(400).send('Usuario o contraseña incorrectos');
@@ -32,6 +32,8 @@ router.post('/auth', async (req, res) => {
 
         //Se comparan las contraseñas encriptadas (utilizan sha2)
         const user = rows[0];
+        const rol = rows[0].rol;
+        console.log(rol);
         const hashedPassword = hashPassword(contra); 
         console.log(hashedPassword)
         console.log(user.nombre, user.contra)
@@ -40,7 +42,7 @@ router.post('/auth', async (req, res) => {
         }
     
         //Se genera el token
-        const payload = { nombre };
+        const payload = { nombre, rol };
     
         const token = jwt.sign(
             payload,

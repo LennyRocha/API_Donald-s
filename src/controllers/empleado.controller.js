@@ -70,9 +70,9 @@ exports.postEmpleado = async (req, res) => {
 exports.patchEmpleado = async (req, res) => {
     try {
         const {id} = req.params
-        const {nombre, correo, contra} = req.body
-        const [result] = await deadpool.query('UPDATE empleados set nombre = IFNULL(?,nombre), correo = IFNULL(?,correo), contra = IFNULL(sha2(?,256),contra) WHERE emp_id = ?'
-            ,[nombre, correo, contra, id])
+        const {nombre, correo, contra, rol} = req.body
+        const [result] = await deadpool.query('UPDATE empleados set nombre = IFNULL(?,nombre), correo = IFNULL(?,correo), contra = IFNULL(sha2(?,256),contra), rol = IFNULL(?,rol) WHERE emp_id = ?'
+            ,[nombre, correo, contra, rol, id])
         if(result.affectedRows == 0) return res.status(404).json({
             error: '304',
             mensaje: '¡NOT MODIFIED!',

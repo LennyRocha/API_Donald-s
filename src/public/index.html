@@ -40,7 +40,7 @@
   </header>
 
   <main>
-    <div class="container py-4">
+    <div class="container py-4" id="home">
       <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
           <h1 class="display-5 fw-bold">Bienvenido a APIDonald's</h1>
@@ -49,7 +49,7 @@
           <button class="btn btn-primary btn-lg" type="button">Comenzar a ordenar</button>
         </div>
       </div>
-      <div id="home">
+      <div>
         <div class="row align-items-md-stretch" id="caja">
           <div class="col-md-6">
             <div class="h-100 p-5 text-bg-dark rounded-3">
@@ -100,37 +100,47 @@
 
         <br>
 
+        <div class="justify-content-center"><h1 class="h1">Pruebalo tú mismo</h1></div>
         <div id="busqueda" class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <h3 class="line bg-light" style="padding-left: 5px; padding-right: 5px;">localhost:3000/api/v1/</h3>
-          <input type="search" class="form-control"><button type="submit" class="btn btn-warning">Buscar</button>
+          <input type="search" class="form-control" id="find">
+          <button type="submit" class="btn btn-warning" id="but">Buscar</button>
         </div>
 
         <br>
+        <div class="JsonViewer-module__jsonviewer--vatbb" style="border-color: #1c1c1c; border-style:dashed;">
+          <pre class="JsonViewer-module__code--2XOHn">
+              <code>
+                <h5 id="consumo"></h5>
+              </code>
+          </pre>
+          <div class="JsonViewer-module__json--2OTYy"></div>
+            <div class="JsonViewer-module__toolbar--1qg2d">
+                <label class="custom-cursor-default-hover" id="JSON">
+                    <input type="checkbox" checked class="custom-cursor-default-hover" id="myJson"> 
+                    View raw JSON (34.006 kB, 974 lines)
+                </label>
+            </div>
+          </div>
       </div>
 
-      <div id="about">
-            <div class="JsonViewer-module__jsonviewer--vatbb" style="border-color: #1c1c1c; border-style:dashed;">
-              <pre class="JsonViewer-module__code--2XOHn">
-                  <code>
-                    <h5 id="consumo"></h5>
-                  </code>
-              </pre>
-              <div class="JsonViewer-module__json--2OTYy"></div>
-              <div class="JsonViewer-module__toolbar--1qg2d">
-                  <label class="custom-cursor-default-hover" id="JSON">
-                      <input type="checkbox" checked class="custom-cursor-default-hover" id="myJson"> 
-                      View raw JSON (34.006 kB, 974 lines)
-                  </label>
-              </div>
-          </div>      
-        </div>      
+      <div id="about" style="display: none;">  
+        <h1 class="h1">ABOUT</h1>  
+        <h2 class="h2">¿Qué es esto?</h2>  
+        <p class="justify-content-center">Este sitio, proporciona información acerca de nuestra API, su consumo y su gestión para los usuarios consumidores que necesiten información acerca de un restaurante de comida rápida.</p>
+        <h2 class="h2">¿Qué es una API?</h2>
+        <p class="p justify-content-center"></p>
+        <h2 class="h2">¿Quienes somos?</h2>
+        <p class="p justify-content-center"></p>
+      </div>
+
       </div>
     </div>
   </main>
     <footer class="py-3 my-4" id="foot">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        <li class="nav-item"><a onclick="showHome()" class="nav-link px-2 text-muted" id="homeBtn">Home</a></li>
+        <li class="nav-item"><a onclick="showAbout()" class="nav-link px-2 text-muted" id="aboutBtn">About</a></li>
         <li class="nav-item"><a href="http://localhost:3000/api/v1/login" class="nav-link px-2 text-muted">Registrarme</a></li>
       </ul>
       <p class="text-center text-muted">&copy; 2024 UTEZ</p>
@@ -213,53 +223,120 @@
       background-attachment: fixed;
       background-color: var(--cir-normal);
     }
+    #consumo{
+      max-height: 50vh;
+    }
+    #about p{
+      font-size:x-large;
+    }
   </style>
   <script>
   const code = document.getElementById("consumo");
-const checkbox = document.getElementById("myJson");
+  const checkbox = document.getElementById("myJson");
+  const find = document.getElementById("find")
 
-fetch("http://localhost:3000/api/v1/menu")
-    .then(response => response.json())
-    .then(data => {
-        const jsonStr = JSON.stringify(data, null, 2);
-        const jsonSize = new Blob([jsonStr]).size / 1024;
-        const jsonLines = jsonStr.split('\n').length;
+  fetch("http://localhost:3000/api/v1/menu")
+      .then(response => response.json())
+      .then(data => {
+          const jsonStr = JSON.stringify(data, null, 2);
+          const jsonSize = new Blob([jsonStr]).size / 1024;
+          const jsonLines = jsonStr.split('\n').length;
 
-        // Define una función para crear una tabla a partir del JSON
-        function createTable(data) {
-            let table = "<table border='1'><tr>";
-            for (let key in data[0]) {
-                table += `<th>${key}</th>`;
-            }
-            table += "</tr>";
-            data.forEach(item => {
-                table += "<tr>";
-                for (let key in item) {
-                    table += `<td>${item[key]}</td>`;
-                }
-                table += "</tr>";
-            });
-            table += "</table>";
-            return table;
-        }
+          // Define una función para crear una tabla a partir del JSON
+          function createTable(data) {
+              let table = "<table border='1'><tr>";
+              for (let key in data[0]) {
+                  table += `<th>${key}</th>`;
+              }
+              table += "</tr>";
+              data.forEach(item => {
+                  table += "<tr>";
+                  for (let key in item) {
+                      table += `<td>${item[key]}</td>`;
+                  }
+                  table += "</tr>";
+              });
+              table += "</table>";
+              return table;
+          }
 
-        // Añade un event listener al checkbox para cambiar el formato del JSON
-        checkbox.addEventListener("change", () => {
-            if (checkbox.checked) {
-                // Muestra el JSON en formato preformateado
-                code.innerHTML = `<pre>${jsonStr}</pre>`;
-            } else {
-                // Muestra el JSON como una tabla
-                code.innerHTML = createTable(data);
-            }
-        });
+          // Añade un event listener al checkbox para cambiar el formato del JSON
+          checkbox.addEventListener("change", () => {
+              if (checkbox.checked) {
+                  // Muestra el JSON en formato preformateado
+                  code.innerHTML = `<pre>${jsonStr}</pre>`;
+              } else {
+                  // Muestra el JSON como una tabla
+                  code.innerHTML = createTable(data);
+              }
+          });
 
-        // Muestra el JSON en formato preformateado por defecto
-        code.innerHTML = `<pre>${jsonStr}</pre>`;
-    })
-    .catch(error => {
-        console.error("Error fetching data:", error);
-    });
+          // Muestra el JSON en formato preformateado por defecto
+          code.innerHTML = `<pre>${jsonStr}</pre>`;
+      })
+      .catch(error => {
+          console.error("Error fetching data:", error);
+      });
+
+      document.getElementById("but").addEventListener("click", () => 
+      {
+        fetch("http://localhost:3000/api/v1/"+find.value)
+          .then(response => response.json())
+          .then(data => {
+              const jsonStr = JSON.stringify(data, null, 2);
+              const jsonSize = new Blob([jsonStr]).size / 1024;
+              const jsonLines = jsonStr.split('\n').length;
+
+              // Define una función para crear una tabla a partir del JSON
+              function createTable(data) {
+                  let table = "<table border='1'><tr>";
+                  for (let key in data[0]) {
+                      table += `<th>${key}</th>`;
+                  }
+                  table += "</tr>";
+                  data.forEach(item => {
+                      table += "<tr>";
+                      for (let key in item) {
+                          table += `<td>${item[key]}</td>`;
+                      }
+                      table += "</tr>";
+                  });
+                  table += "</table>";
+                  return table;
+              }
+
+              // Añade un event listener al checkbox para cambiar el formato del JSON
+              checkbox.addEventListener("change", () => {
+                  if (checkbox.checked) {
+                      // Muestra el JSON en formato preformateado
+                      code.innerHTML = `<pre>${jsonStr}</pre>`;
+                  } else {
+                      // Muestra el JSON como una tabla
+                      code.innerHTML = createTable(data);
+                  }
+              });
+
+              // Muestra el JSON en formato preformateado por defecto
+              code.innerHTML = `<pre>${jsonStr}</pre>`;
+          })
+          .catch(error => {
+              console.error("Error fetching data:", error);
+          });
+      });
+
+      function showHome() {
+          document.getElementById("home").style.display = 'block';
+          document.getElementById("about").style.display = 'none';
+        /*document.getElementById("home").style.display = block;
+        document.getElementById("about").style.display = none;*/
+      };
+
+      function showAbout() {
+          document.getElementById("about").style.display = 'block';
+          document.getElementById("home").style.display = 'none';
+        /*document.getElementById("about").style.display = block;
+        document.getElementById("home").style.display = none;*/
+      };
   </script>
 </body>
 </html>

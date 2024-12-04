@@ -10,10 +10,10 @@ const {
 const adminToken = require("../Auth/adminAuth");
 
 //Rutas de la API
-router.get('admin/reporte', adminToken, getReporte)
+router.get('/admin/reporte', adminToken, getReporte)
 
-router.get('admin/reporte/:id', adminToken, getReportes)
+router.get('/admin/reporte/:id', adminToken, getReportes)
 
-router.delete('admin/reporte', adminToken, deleteReportes)
+router.delete('/admin/reporte', adminToken, deleteReportes)
 
 module.exports = router
