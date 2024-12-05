@@ -14,6 +14,6 @@ router.get('/admin/reporte', adminToken, getReporte)
 
 router.get('/admin/reporte/:id', adminToken, getReportes)
 
-router.delete('/admin/reporte', adminToken, deleteReportes)
+router.delete('/admin/reporte/:id', adminToken, deleteReportes)
 
 module.exports = router
