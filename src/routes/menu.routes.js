@@ -26,6 +26,6 @@ router.put('/menu/:nombre', elToken, putMenu)
 
 router.patch('/menu/:id', elToken, patchMenu)
 
-router.delete('/menu', elToken, deleteMenu)
+router.delete('/menu/:id', elToken, deleteMenu)
 
 module.exports = router
