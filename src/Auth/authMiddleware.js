@@ -25,7 +25,7 @@ function elToken(req, res, next) {
     
     try {
         const verified = jwt.verify(token, SECRET_KEY);
-        req.user = verified; // Aquí puedes almacenar los datos del usuario para su uso posterior
+        req.user = verified;
         next();
     } catch (err) {
         res.status(404).json({            

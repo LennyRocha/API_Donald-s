@@ -94,7 +94,6 @@ exports.getOrden = async (req, res) => {
             mensaje: '¡NOT FOUND!',
             dato:'No se encontró tu orden'
         })
-        //res.json(rows[0])
         res.json({
             numero:rows[0].num_orden,
             total:rows[0].total,
@@ -205,7 +204,6 @@ exports.postOrden = async (req, res) => {
 
             const result = await Promise.all(
                 productosRows.map(async (producto) => {
-                    console.log("Procesando producto:", producto); // Depuración
             
                     if (!producto.prod_id) {
                         throw new Error(`Producto con nombre '${producto.nombre}' no tiene un ID válido.`);

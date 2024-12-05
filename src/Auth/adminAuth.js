@@ -25,10 +25,9 @@ function verificarAdministrador(req, res, next) {
     
     try {
         const verified = jwt.verify(token, SECRET_KEY);
-        req.user = verified; // Almacena los datos del usuario en req.user
+        req.user = verified;
         
-        // Verifica si el correo pertenece al administrador
-        if (req.user.rol !== 1) { // Cambia el correo por el del administrador
+        if (req.user.rol !== 1) {
             return res.status(403).json({            
                 "metadata": [
                 { 

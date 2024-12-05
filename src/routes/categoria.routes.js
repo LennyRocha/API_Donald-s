@@ -11,6 +11,7 @@ const {
 } = require("../controllers/categoria.controller");
 const elToken = require("../Auth/authMiddleware");
 
+//Rutas de la API
 router.get('/categorias', getCategorias)
 
 router.get('/categorias/:id', getCategoria)

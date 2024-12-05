@@ -24,7 +24,6 @@ router.post('/auth', async (req, res) => {
 
         //Se valida al usuario en la base de datos
         const [rows] = await deadpool.query('SELECT * FROM empleados WHERE nombre = ?', [nombre]);
-        //console.log(nombre, contra)
         
         if (rows.length === 0) {
             return res.status(400).send('Usuario o contraseña incorrectos');
