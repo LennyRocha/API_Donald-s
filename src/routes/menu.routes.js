@@ -13,6 +13,8 @@ const {
 } = require("../controllers/menu.controller");
 const elToken = require("../Auth/authMiddleware");
 
+const adminToken = require("../Auth/adminAuth");
+
 //Rutas de la API
 router.get('/menu', getMenu)
 
@@ -26,6 +28,6 @@ router.put('/menu/:nombre', elToken, putMenu)
 
 router.patch('/menu/:id', elToken, patchMenu)
 
-router.delete('/menu/:nombre', elToken, deleteMenu)
+router.delete('/menu/:nombre', adminToken, deleteMenu)
 
 module.exports = router

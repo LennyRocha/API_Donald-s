@@ -11,6 +11,8 @@ const {
 } = require("../controllers/empleado.controller");
 const elToken = require("../Auth/authMiddleware");
 
+const adminToken = require("../Auth/adminAuth");
+
 //Rutas de la API
 router.get('/empleados', elToken, getEmpleados)
 
@@ -20,6 +22,6 @@ router.post('/empleados', postEmpleado)
 
 router.patch('/empleados/:id', elToken, patchEmpleado)
 
-router.delete('/empleados/:id', elToken, deleteEmpleado)
+router.delete('/empleados/:id', adminToken, deleteEmpleado)
 
 module.exports = router
