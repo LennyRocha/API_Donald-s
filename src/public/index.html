@@ -312,30 +312,30 @@
   const checkbox = document.getElementById("myJson");
   const find = document.getElementById("find")
 
+  // Define una función para crear una tabla a partir del JSON
+  function createTable(data) {
+    let table = "<table border='1'><tr>";
+    for (let key in data[0]) {
+        table += `<th>${key}</th>`;
+    }
+    table += "</tr>";
+    data.forEach(item => {
+        table += "<tr>";
+        for (let key in item) {
+            table += `<td>${item[key]}</td>`;
+        }
+        table += "</tr>";
+    });
+    table += "</table>";
+    return table;
+  }
+
   fetch("http://localhost:3000/api/v1/menu")
       .then(response => response.json())
       .then(data => {
           const jsonStr = JSON.stringify(data, null, 2);
           const jsonSize = new Blob([jsonStr]).size / 1024;
           const jsonLines = jsonStr.split('\n').length;
-
-          // Define una función para crear una tabla a partir del JSON
-          function createTable(data) {
-              let table = "<table border='1'><tr>";
-              for (let key in data[0]) {
-                  table += `<th>${key}</th>`;
-              }
-              table += "</tr>";
-              data.forEach(item => {
-                  table += "<tr>";
-                  for (let key in item) {
-                      table += `<td>${item[key]}</td>`;
-                  }
-                  table += "</tr>";
-              });
-              table += "</table>";
-              return table;
-          }
 
           // Añade un event listener al checkbox para cambiar el formato del JSON
           checkbox.addEventListener("change", () => {
@@ -363,24 +363,6 @@
               const jsonStr = JSON.stringify(data, null, 2);
               const jsonSize = new Blob([jsonStr]).size / 1024;
               const jsonLines = jsonStr.split('\n').length;
-
-              // Define una función para crear una tabla a partir del JSON
-              function createTable(data) {
-                  let table = "<table border='1'><tr>";
-                  for (let key in data[0]) {
-                      table += `<th>${key}</th>`;
-                  }
-                  table += "</tr>";
-                  data.forEach(item => {
-                      table += "<tr>";
-                      for (let key in item) {
-                          table += `<td>${item[key]}</td>`;
-                      }
-                      table += "</tr>";
-                  });
-                  table += "</table>";
-                  return table;
-              }
 
               // Añade un event listener al checkbox para cambiar el formato del JSON
               checkbox.addEventListener("change", () => {
