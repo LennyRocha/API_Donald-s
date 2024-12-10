@@ -6,7 +6,6 @@ const deadpool = require("../../db/db.js")
 //GET comentarios de un producto
 exports.getFeedback = async (req, res) => {
     try {
-        console.log(req.params.producto)
         //Primero se verifica que exista el producto
         const [row] = await deadpool.query("SELECT prod_id FROM productos WHERE nombre = ?",[req.params.producto])
         if(row.length <= 0) return res.status(404).json({
@@ -53,8 +52,6 @@ exports.postFeedbck = async (req, res) => {
             dato:'No se encontró algun platillo con ese id'
         })
         const idPlato = row
-
-        console.log(idPlato)
 
         const [rows] = 
             await deadpool.query('INSERT INTO feedback (producto,usuario,comentario,calificacion) VALUES (?,?,?,?)'

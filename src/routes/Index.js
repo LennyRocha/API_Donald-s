@@ -27,11 +27,12 @@ module.exports = function(){
     router.get("/login",(req,res) => {
         res.send(`<html>
                     <head>
-                        <title>Logeando prueba</title>
+                        <title>Login</title>
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
                     </head>
-                    <body>
+                    <body style="min-width: 500px">
                         <br>
+                        <h1 class="h1 text-center">Inicio de sesión</h1>
                         <form method="POST" action="auth" class="container">
                             Nombre de usuario: <input type="text" name="nombre" class="form-control"/><br>
                             Contraseña: <input type="password" name="contra" class="form-control"/><br>

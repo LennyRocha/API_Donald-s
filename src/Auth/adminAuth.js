@@ -10,16 +10,10 @@ const SECRET_KEY = "tangamandapio";
 function verificarAdministrador(req, res, next) {
     const authHeader = req.header('Authorization');
     const token = authHeader && authHeader.split(' ')[1];
-    console.log('Token recibido: ', token);
     
     if (!token) {
         return res.status(401).json({            
-            "metadata": [
-            { 
-                "codigo": "-01", 
-                "mensaje": "Acceso denegado. No se proporcionó un token." 
-            }
-            ],
+            "Bloqueado": "Acceso denegado. No se proporcionó un token." 
         });
     }
     
@@ -29,16 +23,11 @@ function verificarAdministrador(req, res, next) {
         
         if (req.user.rol !== 1) {
             return res.status(403).json({            
-                "metadata": [
-                { 
-                    "codigo": "-01", 
-                    "mensaje": "Usted no es administrador, acceso denegado" 
-                }
-                ],
+                "Bloqueado": "Usted no es administrador, acceso denegado"
             });
         }
 
-        next(); // Continúa si es administrador
+        next();r
     } catch (err) {
         res.status(400).send('Token no válido.');
     }

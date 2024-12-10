@@ -32,10 +32,7 @@ router.post('/auth', async (req, res) => {
         //Se comparan las contraseñas encriptadas (utilizan sha2)
         const user = rows[0];
         const rol = rows[0].rol;
-        console.log(rol);
         const hashedPassword = hashPassword(contra); 
-        console.log(hashedPassword)
-        console.log(user.nombre, user.contra)
         if (hashedPassword !== user.contra) { 
             return res.status(400).send('Usuario o contraseña incorrectos'); 
         }

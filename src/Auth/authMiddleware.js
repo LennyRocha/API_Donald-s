@@ -10,17 +10,9 @@ const SECRET_KEY = "tangamandapio";
 function elToken(req, res, next) {
     const authHeader = req.header('Authorization');
     const token = authHeader && authHeader.split(' ')[1];
-    console.log('Token recibido: ', token);
     
     if (!token) {
-        return res.status(401).json({            
-            "metadata": [
-            { 
-                "codigo": "-01", 
-                "mensaje": "Acceso denegado. No se proporcionó un token." 
-            }
-            ],
-        });
+        return res.status(401).send("Acceso denegado. No tienes un token de acceso." );
     }
     
     try {
@@ -28,14 +20,7 @@ function elToken(req, res, next) {
         req.user = verified;
         next();
     } catch (err) {
-        res.status(404).json({            
-            "metadata": [
-            { 
-                "codigo": "-01", 
-                "mensaje": "Token no válido." 
-            }
-            ],
-        });
+        res.status(400).send('Token no válido.');
     }
 }
 
