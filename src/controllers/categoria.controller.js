@@ -84,8 +84,7 @@ exports.patchCategoria = async (req, res) => {
             mensaje: '¡NOT FOUND!',
             dato:'No se encontró la categoria'
         })
-        res.sendStatus(201)
-        res.json(rows[0])
+        res.status(201).json(rows[0])
     } catch (error) {
         console.log(error)
         return res.status(500).json({
