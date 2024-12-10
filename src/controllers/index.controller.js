@@ -46,7 +46,7 @@ router.post('/auth', async (req, res) => {
         const token = jwt.sign(
             payload,
             SECRET_KEY,
-            { expiresIn: "5m" }
+            { expiresIn: "30m" }
         );
     
         //Se adjunta al header
