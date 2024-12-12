@@ -27,7 +27,7 @@ function verificarAdministrador(req, res, next) {
             });
         }
 
-        next();r
+        next();
     } catch (err) {
         res.status(400).send('Token no válido.');
     }

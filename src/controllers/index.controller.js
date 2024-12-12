@@ -26,7 +26,9 @@ router.post('/auth', async (req, res) => {
         const [rows] = await deadpool.query('SELECT * FROM empleados WHERE nombre = ?', [nombre]);
         
         if (rows.length === 0) {
-            return res.status(400).send('Usuario o contraseña incorrectos');
+            return res.status(401).json({
+                'message':'Usuario o contraseña incorrectos'
+            });
         }
 
         //Se comparan las contraseñas encriptadas (utilizan sha2)
@@ -34,7 +36,7 @@ router.post('/auth', async (req, res) => {
         const rol = rows[0].rol;
         const hashedPassword = hashPassword(contra); 
         if (hashedPassword !== user.contra) { 
-            return res.status(400).send('Usuario o contraseña incorrectos'); 
+            return res.status(401).send('Usuario o contraseña incorrectos'); 
         }
     
         //Se genera el token

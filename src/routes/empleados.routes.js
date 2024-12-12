@@ -14,7 +14,7 @@ const elToken = require("../Auth/authMiddleware");
 const adminToken = require("../Auth/adminAuth");
 
 //Rutas de la API
-router.get('/empleados', elToken, getEmpleados)
+router.get('/empleados', adminToken, getEmpleados)
 
 router.get('/empleados/:id', elToken, getEmpleado)
 

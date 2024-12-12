@@ -25,18 +25,22 @@ module.exports = function(){
 
     //Pequeño testeo del login
     router.get("/login",(req,res) => {
-        res.send(`<html>
+        res.send(`
+                <!DOCTYPE html>
+                <html>
                     <head>
                         <title>Login</title>
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
                     </head>
-                    <body style="min-width: 500px">
+                    <body>
                         <br>
-                        <h1 class="h1 text-center">Inicio de sesión</h1>
-                        <form method="POST" action="auth" class="container">
-                            Nombre de usuario: <input type="text" name="nombre" class="form-control"/><br>
-                            Contraseña: <input type="password" name="contra" class="form-control"/><br>
-                            <input type="submit" value="Acceder" class="btn btn-primary" id="entrar"/>
+                        <br>
+                        <center><img src="C:/Users/leoob/Downloads/API_Donald-s/src/public/logo_API.png" alt="logo" class="img-fluid"/></center>
+                        <h1 class="h1 text-center text-warning">Log-In</h1>
+                        <form method="POST" action="auth" class="container" style="max-width: 500px">
+                            Nombre de usuario: <input type="text" name="nombre" class="form-control" placeholder="Ingresa tu nombre""/><br>
+                            Contraseña: <input type="password" name="contra" class="form-control" placeholder="Ingresa tu contraseña"/><br>
+                            <input type="submit" value="Acceder" class="btn btn-danger text-center" id="entrar"/>
                         </form>
                     </body>
                 </html>`)
