@@ -72,7 +72,7 @@ exports.patchCategoria = async (req, res) => {
         const {nombre, descripcion} = req.body
         const [result] = await deadpool.query('UPDATE categorias set nombre = IFNULL(?,nombre), descripcion = IFNULL(?,descripcion) WHERE cat_id = ?'
             ,[nombre, descripcion, id])
-        if(result.affectedRows == 0) return res.status(404).json({
+        if(result.affectedRows == 0) return res.status(304).json({
             error: '304',
             mensaje: '¡NOT MODIFIED!',
             dato:'No se pudo actualizar la información de la categoría'
